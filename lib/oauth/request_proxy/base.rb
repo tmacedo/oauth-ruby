@@ -110,7 +110,7 @@ module OAuth::RequestProxy
 
     # See 9.1 in specs
     def signature_base_string
-      base = [method, normalized_uri, normalized_parameters]
+      base = [method, URI.encode(URI.decode(normalized_uri),/[^a-zA-Z0-9\-\.\_\~\/\:]/) , normalized_parameters]
       base.map { |v| escape(v) }.join("&")
     end
 
